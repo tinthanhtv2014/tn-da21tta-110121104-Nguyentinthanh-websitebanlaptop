@@ -1,0 +1,955 @@
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
+
+/* Linear Gradient Background for Header */
+/* Navbar adjustments */
+body {
+  --tw-text-opacity: 1;
+  color: #1c1c1e;
+  color: rgb(28 28 30 / var(--tw-text-opacity));
+  font-family: Nunito Sans, Roboto, Helvetica Neue, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  position: relative;
+}
+
+.main {
+  position: relative;
+}
+
+.navbar-brand img {
+  max-height: 60px;
+}
+
+.navbar-nav .nav-link {
+  font-size: 1rem;
+  color: #333;
+}
+
+.navbar-nav .btn-outline-warning {
+  border-radius: 50px;
+  padding: 0.5rem 1rem;
+}
+
+/* Banner Section */
+.banner-section {
+  background-color: #ff8200;
+  background: linear-gradient(90deg, #ff8200 0%, #ff9900 50%, #ffcc00 100%);
+  background: url("https://s3.go2joy.vn/1000w/cover_photo/171_1698827234_65420be28e700.webp");
+  color: #fff;
+  height: 350px;
+  /* background-position: center; */
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.banner-section h1 {
+  font-weight: bold;
+}
+
+.banner-section img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Search Section */
+.search-section {
+  background-color: #f8f9fa;
+}
+
+.search-section .nav-pills .nav-link {
+  background-color: #f0f0f0;
+  border-radius: 50px;
+  padding: 10px 30px;
+  color: #ff8200;
+  font-weight: bold;
+}
+
+.search-section .nav-pills .nav-link.active {
+  background-color: #ff8200;
+  color: #fff;
+}
+
+.search-section .input-group-text {
+  background-color: #ff8200;
+  color: white;
+  border: none;
+}
+
+.search-section input.form-control {
+  border-radius: 50px;
+}
+
+.search-section .btn-warning {
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 50px;
+}
+
+.bg-gradient {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 85, 0, 1) 0%,
+    rgba(255, 143, 0, 1) 50%,
+    rgba(255, 255, 255, 1) 100%
+  );
+}
+
+/* Orange background for the promo section */
+.bg-orange {
+  background-color: #ff8200;
+}
+
+/* Category Cards */
+.category-card {
+  transition: transform 0.3s ease;
+}
+
+.category-card:hover {
+  transform: scale(1.05);
+}
+
+/* Custom styles for search form */
+form input[type="search"] {
+  border-radius: 50px;
+  padding: 15px;
+}
+
+form button[type="submit"] {
+  border-radius: 50px;
+  padding: 10px 30px;
+  font-weight: bold;
+}
+
+/* Ensure proper card image display */
+.card-img-top {
+  height: 250px;
+  object-fit: cover;
+}
+
+/* Blog Section */
+.blog-section {
+  background-color: #f9f9f9;
+}
+
+.blog-section img {
+  border-radius: 8px;
+}
+
+/* City Section */
+.city-section .nav-tabs .nav-link {
+  padding: 10px 20px;
+  color: #ff8200;
+}
+
+.city-section .nav-tabs .nav-link.active {
+  background-color: #ff8200;
+  color: white;
+}
+
+.city-section p {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+/* Footer Section */
+.footer-section h5 {
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.footer-section .social-links a {
+  color: #333;
+  margin-left: 10px;
+}
+
+.footer-section .social-links a:hover {
+  color: #ff8200;
+}
+
+.footer-section hr {
+  margin: 2rem 0;
+  border: 1px solid #ccc;
+}
+
+.btn-hotel {
+  background: #ff8200;
+  color: white;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 130px;
+  font-size: 15px;
+}
+
+.text-green {
+  color: #ff8200;
+}
+
+.page-link {
+  color: black;
+  font-weight: 600;
+}
+
+.benefits-section {
+  margin-left: 1.5rem;
+  /* tương đương với ml-4 */
+  text-align: left;
+  /* tương đương với text-left */
+}
+
+.card {
+  border: none;
+  /* Xóa viền card */
+  border-radius: 10px;
+  /* Bo tròn góc card */
+  background-color: #fff;
+  /* Màu nền của card */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Đổ bóng cho card */
+}
+
+.text-orange {
+  color: #ff6f20;
+  /* Màu cam cho các biểu tượng */
+}
+
+.card-title {
+  font-weight: bold;
+  /* Đậm tiêu đề card */
+}
+
+.card-text {
+  color: #6c757d;
+  /* Màu chữ cho đoạn mô tả */
+}
+
+/* .card-body {
+  border-radius: 30px;
+} */
+
+.TpHCM {
+  border-bottom: 2px solid black;
+  color: black;
+}
+
+/* Đảm bảo giao diện di động thân thiện */
+@media (max-width: 576px) {
+  .card-body {
+    padding: 1.5rem;
+    /* Thay đổi padding cho card trên di động */
+  }
+}
+
+.bg-image {
+  height: 600px;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.category-hotel {
+  /* margin-top: 50px; */
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.brg-blog {
+  background: url("https://s3.go2joy.vn/1000w/cover_photo/33_14148447441.jpg");
+  height: 450px;
+  background-size: cover;
+}
+
+.no-wrap {
+  white-space: nowrap;
+}
+
+.text-hotel-color {
+  color: black;
+}
+
+.container-login {
+  /* display: flex; */
+  background-color: white;
+  border-radius: 10px;
+  /* box-shadow   : 0 4px 12px rgba(0, 0, 0, 0.1); */
+  width: 70%;
+  max-width: 1200px;
+  overflow: hidden;
+}
+
+.welcome-section-login {
+  padding: 30px;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.welcome-section-login img {
+  width: 100%;
+  height: auto;
+}
+
+.login-section-login {
+  padding: 40px;
+  margin: auto;
+}
+
+h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.input-group-login {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.input-group-login label {
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #777;
+}
+
+.input-group-login select,
+.input-group-login input {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 0px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+
+.submit-btn-login {
+  background-color: #ff8200;
+  color: white;
+  border: none;
+  padding: 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.submit-btn-login:hover {
+  background-color: #e08e18;
+}
+
+.alternative-login p {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.login-options-login {
+  display: flex;
+  justify-content: space-between;
+}
+
+.social-btn-login {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.social-btn-login:last-child {
+  margin-right: 0;
+}
+
+.facebook-login {
+  background-color: #3b5998;
+  color: white;
+}
+
+.google-login {
+  background-color: #db4437;
+  color: white;
+}
+
+.apple-login {
+  background-color: black;
+  color: white;
+}
+
+.register-link-login {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.register-link-login a {
+  color: #f5a623;
+  text-decoration: none;
+}
+
+.register-link-login a:hover {
+  text-decoration: underline;
+}
+
+.section-login {
+  min-height: 100vh;
+  margin-bottom: 50px;
+  margin-top: 50px;
+  padding-top: 0px !important;
+}
+
+/* hotel */
+.hotel-item {
+  display: flex;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  padding: 15px;
+}
+
+.hotel-item img {
+  max-width: 250px;
+  height: 165px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.hotel-info {
+  margin-left: 15px;
+  flex: 1;
+}
+
+.hotel-info h3 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.hotel-info p {
+  margin: 5px 0;
+}
+
+.price {
+  color: red;
+  font-weight: bold;
+}
+
+.pagination {
+  justify-content: center;
+}
+
+.brg-hotel {
+  background: url("https://themewagon.github.io/sona/img/hero/hero-3.jpg");
+  background-color: white;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.section-defaut {
+  /* padding-top: 100px; */
+  min-height: 90vh;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .hotel-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hotel-info {
+    margin-left: 0;
+  }
+
+  .hotel-item img {
+    max-width: 100%;
+  }
+}
+
+/* hotel-detail */
+.hotel-header-detail {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hotel-header-detail h1 {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.hotel-header-detail .address-detail {
+  font-size: 16px;
+}
+
+.rating-detail {
+  display: flex;
+  flex-direction: column;
+  /* Chia các thành phần thành các hàng dọc */
+  /* align-items   : center; */
+  /* Căn giữa nội dung theo chiều ngang */
+  color: #ff9900;
+  text-align: justify;
+}
+
+.hotel-header-details {
+  display: flex;
+  align-items: center;
+  /* Căn các thành phần theo chiều ngang */
+  gap: 8px;
+  /* Khoảng cách giữa các phần tử, có thể điều chỉnh */
+}
+
+.hotel-header-favorite-text {
+  margin-bottom: 8px;
+  /* Khoảng cách giữa "Yêu thích" và các phần tử bên dưới */
+}
+
+.amenities {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.amenities p {
+  font-size: 25px;
+}
+
+.amenities-list {
+  column-count: 2;
+  /* Số cột bạn muốn chia */
+  column-gap: 20px;
+  /* Khoảng cách giữa các cột */
+  /* list-style-type: none; */
+  /* Loại bỏ bullet trước các mục li */
+}
+
+.hotel-info-container {
+  background: white;
+  width: 100%;
+  height: 700px;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.map-container > img {
+  height: 250px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.more-infor {
+  color: #ff8200;
+  text-decoration: 1px solid black;
+  cursor: pointer;
+  border-bottom: 1px solid #ff8200;
+  margin-top: 10px;
+}
+
+.rating-detail .star-detail {
+  color: black;
+  font-size: 16px;
+  font: bold;
+  padding-left: 5px;
+}
+
+.amenities-text {
+  text-align: justify;
+  line-height: 30px;
+  font-size: 16px;
+  font-family: Nunito Sans, Roboto, Helvetica Neue, sans-serif;
+}
+
+.rating-detail .review-count-detail {
+  margin-left: 10px;
+  font-size: 16px;
+  color: #555;
+}
+
+.room-list-detail .room-item-detail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.room-list-detail .room-item-detail img {
+  width: 100px;
+  border-radius: 8px;
+}
+
+.room-details-detail {
+  flex-grow: 1;
+  margin-left: 15px;
+}
+
+.room-details-detail h5 {
+  font-weight: bold;
+}
+
+.room-price-detail {
+  font-weight: bold;
+  color: red;
+}
+
+.original-price-detail {
+  text-decoration: line-through;
+  color: #999;
+}
+
+.btn-book-detail {
+  background-color: rgb(255, 193, 78);
+  color: #fff;
+  font-weight: bold;
+  width: 120px;
+  height: 45px;
+  font-size: 15px;
+  border-radius: 5px;
+}
+
+/* Mobile optimization */
+@media (max-width: 768px) {
+  .hotel-header-detail {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .room-item-detail {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .room-details-detail {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+}
+
+.main-detail-img {
+  width: 75%;
+  /* height       : 350px; */
+  border-radius: 13px;
+}
+
+.idea {
+  color: #ff8200;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* end */
+.form-booking {
+  background: #f8f9fa;
+  /* Màu nền nhẹ */
+  border: 1px solid #ddd;
+  /* Viền nhẹ */
+}
+
+.form-booking h2 {
+  font-family: "Poppins", sans-serif;
+  /* Font chữ đẹp */
+  color: black;
+  /* Màu tiêu đề */
+  text-transform: uppercase;
+  /* Chữ in hoa */
+  letter-spacing: 1px;
+  /* Khoảng cách giữa các ký tự */
+}
+
+.form-label {
+  font-weight: bold;
+  /* In đậm nhãn */
+  color: black;
+  /* Màu chữ nhẹ */
+}
+
+.form-control,
+.form-select {
+  border: 1px solid #ced4da;
+  /* Viền nhẹ */
+  border-radius: 5px;
+  /* Bo góc */
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #80bdff;
+  /* Màu viền khi focus */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+  /* Đổ bóng khi focus */
+}
+
+/*
+.form-booking {
+  padding: 35px;
+}
+
+.form-booking-header {
+  width           : 100%;
+  height          : 43px;
+  background-color: #ff8200;
+  font-size       : 20px;
+  text-align      : center;
+  padding         : 8px;
+  font-weight     : 600;
+  color           : black;
+  border-radius   : 10px 10px 0px 0px;
+}
+
+.form-booking-content {
+  border: 1px solid #7a3f00;
+}
+
+.form-booking {
+  background-color: #fff;
+padding       : 20px;
+border-radius : 8px;
+box-shadow    : 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-booking h2 {
+  font-family   : 'Poppins', sans-serif;
+
+color         : #343a40;
+
+text-transform: uppercase;
+
+letter-spacing: 1px;
+
+}
+
+.form-label {
+  font-weight: bold;
+color : #495057;
+}
+
+.form-booking .form-group {
+  margin-bottom: 15px;
+}
+
+.form-booking .form-group label {
+  color        : black;
+  font-size    : 0.9rem;
+  margin-bottom: 5px;
+  display      : block;
+}
+
+.form-booking .form-group input,
+.form-booking .form-group textarea,
+.form-booking .form-group select {
+  width           : 100%;
+  padding         : 10px;
+  font-size       : 1rem;
+  border          : none;
+  border-radius   : 5px;
+  background-color: rgba(255, 255, 255, 0.6);
+  outline         : none;
+}
+
+.form-booking .form-group input::placeholder,
+.form-booking .form-group textarea::placeholder {
+  color: white;
+}
+
+.form-booking .btn-submit {
+  background-color: white;
+  color           : #ff8200;
+  padding         : 12px;
+  border          : none;
+  border-radius   : 5px;
+  font-size       : 1.1rem;
+  cursor          : pointer;
+  text-align      : center;
+  width           : 100%;
+  margin-top      : 10px;
+}
+
+.form-booking .btn-submit:hover {
+  background-color: #f1f1f1;
+}
+
+*/
+.search-header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  /* background-color: white; */
+  /* width           : 100%; */
+}
+
+.search-filter-options {
+  display: flex;
+  gap: 10px;
+}
+
+.search-option-button,
+.action-button {
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  background-color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.search-action-button {
+  background-color: #f0f0f0;
+  /* Màu nền nhẹ hơn */
+  margin-left: 10px;
+}
+
+/* styles.css */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f8f8;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+.profile-container {
+  display: flex;
+  max-width: 1200px;
+  margin: 20px auto;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.profile-sidebar {
+  max-width: 175px;
+  min-width: 50px;
+  background-color: #f0f0f0;
+  padding: 20px;
+}
+
+.profile-sidebar__list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.profile-sidebar__item {
+  margin-bottom: 10px;
+}
+
+.profile-sidebar__link {
+  text-align: left;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+.profile-sidebar__link--active {
+  color: #ff6600;
+}
+
+.profile-content {
+  flex: 1;
+  padding: 20px;
+}
+
+.profile-content__title {
+  font-size: 24px;
+  color: #333;
+}
+
+.profile-section {
+  margin-top: 20px;
+}
+
+.profile-section__title {
+  font-size: 18px;
+  color: #333;
+}
+
+.profile-section__description {
+  color: #666;
+}
+
+.profile-info-box {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 15px;
+  background-color: #fafafa;
+  margin-top: 10px;
+}
+
+.profile-info-box__item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.profile-info-box__item:last-child {
+  border-bottom: none;
+}
+
+.profile-info-box__label {
+  color: #333;
+}
+
+.profile-info-box__value {
+  color: #666;
+}
+
+.profile-info-box__avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #ddd;
+  border-radius: 50%;
+}
+
+.profile-info-box__btn {
+  background-color: #fff;
+  border: 1px solid #ff6600;
+  color: #ff6600;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.profile-info-box__btn:hover {
+  background-color: #ff6600;
+  color: #fff;
+}
+
+.hotel-list {
+  padding-bottom: 20px;
+  /* Để tránh nội dung chạm đáy */
+}
+
+.boder {
+  border-radius: 20px;
+}
+
+.room-detail-container {
+  background-color: #fff;
+  /* Màu nền cho container */
+  padding: 20px;
+  /* Khoảng cách bên trong container */
+  border-radius: 8px;
+  /* Bo tròn góc container */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  /* Đổ bóng */
+}

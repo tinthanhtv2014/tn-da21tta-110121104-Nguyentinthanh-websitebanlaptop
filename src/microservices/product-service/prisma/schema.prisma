@@ -1,0 +1,114 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL") // Cấu hình URL kết nối cơ sở dữ liệu từ .env
+}
+model Category {
+  id             Int           @id @default(autoincrement())
+  name           String        @default("")
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  products       Product[]     
+}
+
+model Product {
+  id          Int       @id @default(autoincrement())
+  name        String
+  price       Float     @default(0.0)
+  salePrice   Float     @default(0.0)
+  image       String    @db.LongText
+  description String
+  importPrice Float     @default(0.0)     // 💸 Giá nhập
+  manufactureYear Int   @default(2025)
+  importquantity  Int   @default(0) 
+  type        ProductType
+  categoryId  Int
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  // Relationships
+  laptop      Laptop?
+  accessory   Accessory?
+  category    Category? @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  wishlists   Wishlist[]
+  spotlights  SpotlightProduct[]
+  cart        Cart[]
+}
+
+enum ProductType {
+  LAPTOP
+  ACCESSORY
+}
+
+model Laptop {
+  id         Int     @id @default(autoincrement())
+  productId  Int     @unique
+  cpu        String
+  ram        String
+  storage    String
+  screen     String
+  graphics   String
+  os         String
+  ports      String
+  battery    String
+  weight     String
+  warranty   String
+  brand      String
+  product    Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model Accessory {
+  id             Int     @id @default(autoincrement())
+  productId      Int     @unique
+  accessoryType  String  // VD: "Mouse", "Keyboard"
+  connection     String  // USB / Bluetooth
+  compatibleWith String  // Ví dụ: "Windows, Mac"
+  brand          String
+  warranty       String
+  product        Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+
+model Cart {
+  id        Int       @id @default(autoincrement())
+  userId    Int
+  createdAt DateTime  @default(now())
+  quantity  Int       @default(0) 
+  updatedAt DateTime  @updatedAt
+  productId Int
+  product   Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model Wishlist {
+  id          Int      @id @default(autoincrement())
+  productId  Int
+  userId     Int      
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model Spotlight {
+  id             Int                 @id @default(autoincrement())
+  title          String              @default("")
+  description    String?             @default("")
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+  // Xóa onDelete ở đây
+  products       SpotlightProduct[]  
+}
+
+model SpotlightProduct {
+  productId   Int
+  spotlightId Int
+  product     Product    @relation(fields: [productId], references: [id], onDelete: Cascade)
+  spotlight   Spotlight  @relation(fields: [spotlightId], references: [id], onDelete: Cascade)
+
+  @@id([productId, spotlightId])
+}

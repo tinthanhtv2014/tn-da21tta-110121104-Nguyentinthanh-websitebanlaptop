@@ -1,0 +1,147 @@
+.admin-dashboard {
+  body {
+    background-color: #f8f9fa;
+  }
+  /* .card {
+        border-radius: 5px;
+        box-shadow: 0 0px 4px rgba(0, 0, 0, 0.1);
+    } */
+  .card {
+    box-shadow: var(--pc-card-box-shadow);
+    margin-bottom: 24px;
+    transition: box-shadow 0.2sease-in-out;
+  }
+  .badge {
+    font-size: 14px;
+    padding: 5px 10px;
+  }
+  table {
+    background-color: white;
+    /* border-radius: 10px; */
+    overflow: hidden;
+    border-collapse: collapse;
+  }
+  .ti > .ti-trending-up {
+    color: red !important;
+  }
+  .list-group-item {
+    /* border-radius: 10px; */
+    margin-bottom: 5px;
+  }
+  .status-dot {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .rejected {
+    background-color: red;
+  }
+  .pending {
+    background-color: orange;
+  }
+  .approved {
+    background-color: #52c41a;
+  }
+  .transaction-card {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .transaction-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    background: #f8f9fa;
+  }
+
+  .transaction-icon {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    margin-right: 10px;
+  }
+
+  .icon-approved {
+    background: #d4edda;
+    color: #155724;
+  } /* Xanh */
+  .icon-pending {
+    background: #cce5ff;
+    color: #004085;
+  } /* Xanh dương */
+  .icon-rejected {
+    background: #f8d7da;
+    color: #721c24;
+  } /* Đỏ nhạt */
+
+  .transaction-details {
+    flex-grow: 1;
+  }
+
+  .transaction-amount {
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  .transaction-percentage {
+    font-size: 14px;
+    color: gray;
+  }
+  .avtar.avtar-s {
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+  }
+  .avtar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    font-size: 18px;
+    font-weight: 600;
+    width: 48px;
+    height: 48px;
+  }
+  .bg-light-success {
+    background: #eef9e8 !important; /* Màu xanh nhạt */
+  }
+  .f-18 {
+    font-size: 18px;
+  }
+  .bg-light-success {
+    background: #eef9e8;
+    color: #52c41a;
+  }
+  .text-success {
+    --bs-text-opacity: 1;
+    color: #52c41a !important;
+  }
+  .bg-light-primary {
+    background: #e8f4ff;
+    color: #1890ff;
+  }
+  .text-primary {
+    --bs-text-opacity: 1;
+    color: rgba(var(--bs-primary-rgb), var(--bs-text-opacity)) !important;
+  }
+  .bg-light-danger {
+    background: #ffeded;
+    color: #ff4d4f;
+  }
+  .text-danger {
+    --bs-text-opacity: 1;
+    color: rgba(var(--bs-danger-rgb), var(--bs-text-opacity)) !important;
+  }
+  .f-10 {
+    font-size: 10px;
+  }
+}

@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `user` ADD COLUMN `avatar` VARCHAR(2000) NOT NULL DEFAULT '';

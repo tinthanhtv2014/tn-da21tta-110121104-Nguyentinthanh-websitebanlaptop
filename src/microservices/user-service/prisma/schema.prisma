@@ -1,0 +1,46 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL") // Cấu hình URL kết nối cơ sở dữ liệu từ .env
+}
+
+model User {
+  id            Int       @id @default(autoincrement())
+  emailAddress  String    @unique // emailAddress phải là duy nhất
+  avatar        String    @default("") @db.VarChar(2000)
+  firstName     String    @default("")
+  lastName      String    @default("")
+  fullName      String    @default("")
+  phoneNumber   String?
+  address       String?
+  CodeAddress   Int       @default(0)
+  points        Int       @default(0)
+  status        String    @default("active") // hoặc giá trị mặc định khác
+  createDate    DateTime  @default(now())
+  updateDate    DateTime? @updatedAt
+  isDeleted     Boolean   @default(false)
+  passwordHash  String    @default("")
+  userUpdate    Int?      @default(0)
+  userCreate    Int?      @default(0)
+  role          Int       @default(0)
+  privateKey    String    @default("")
+  rule          String    @default("PENDING")
+}
+
+model Role {
+  id                     Int       @id @default(autoincrement())
+  roleName               String    @default("")
+  createDate             DateTime  @default(now())
+  updateDate             DateTime? @updatedAt
+  isDeleted              Boolean   @default(false)
+  listPermision          String    @db.LongText
+}

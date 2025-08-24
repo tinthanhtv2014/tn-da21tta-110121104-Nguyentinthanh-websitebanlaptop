@@ -1,0 +1,4 @@
+# .env (đặt trong thư mục gốc của dự án)
+
+REACT_APP_URL_SERVER=
+REACT_APP_GOOGLE_CLIENT_ID=

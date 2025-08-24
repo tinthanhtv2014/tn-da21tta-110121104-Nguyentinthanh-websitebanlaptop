@@ -1,0 +1,107 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL") // Cấu hình URL kết nối cơ sở dữ liệu từ .env
+}
+model Order {
+  id                      Int       @id @default(autoincrement())
+  userId                  Int?      @default(0)
+  quantity                Int       @default(0)
+  orderStatus             String    @default("")
+  paymentStatus           Boolean   @default(false)
+  paymentMethod           String    @default("")
+  promotion               String    @db.LongText
+  listProducts            String    @db.LongText
+  user_info               String    @db.LongText
+  totalOrderPrice         Float     @default(0)
+  orderId                 String    @default("")
+  tenantId                Int       @default(0)
+  userUpdate              Int?      @default(0)
+  createDate              DateTime  @default(now())
+  updateDate              DateTime? @updatedAt
+  isDeleted               Boolean   @default(false)
+  plusPoint               Int       @default(0)
+  note                    String    @db.LongText
+}
+
+
+
+
+
+
+
+model Voucher {
+  id                 Int      @id @default(autoincrement())
+  name               String   @default("")
+  code               String   @unique
+  type               String   @default("discount") // "discount", "shipping", etc.
+  startDate          DateTime @default(now())
+  expiryDate         DateTime @default(now())
+  usageCount         Int      @default(0)
+  usagePerUser       Int      @default(1)
+  minOrderValue      Float    @default(0)
+  discountAmount     Float    @default(0)
+  discountPercent    Float    @default(0)
+  maxDiscountValue   Float    @default(0)
+  itemList           String?  @db.LongText
+  icon               String?  @db.LongText
+  image_url          String   @default("") @db.VarChar(1000)
+  tenantId           Int      @default(0)
+  platform           String   @default("all") 
+  userType           String   @default("all") 
+  isPublic           Boolean  @default(true)
+  isFreeShipping     Boolean  @default(false)
+  addedValue         Float    @default(0)
+  totalDenomination  Float    @default(0)
+  status             String   @default("active") 
+  userUpdate         String   @default("")                  // Người cập nhật
+  createDate         DateTime @default(now())               // Ngày tạo
+  updateDate         DateTime @updatedAt                    // Ngày cập nhật
+  isDeleted          Boolean  @default(false)               // Trạng thái xóa
+  isShow             Boolean  @default(false)
+  value1             String?  @db.LongText     // gán giá trị là description
+  value2             String?  @db.LongText
+  value3             String?  @db.LongText
+  number1            Float?   @default(0)     // đây là trường đổi điểm
+  number2            Float?   @default(0)
+  number3            Float?   @default(0)
+  bool1              Boolean? @default(false)
+  bool2              Boolean? @default(false)
+  bool3              Boolean? @default(false)
+  userVoucher        UserVoucher[]
+}
+
+
+
+model UserVoucher {
+  id                 Int      @id @default(autoincrement())
+  userId             Int      @default(0)
+  voucherId          Int     
+  voucher            Voucher  @relation(fields: [voucherId], references: [id], onDelete: Cascade)
+
+/////////////////
+  userUpdate         String   @default("")                  
+  createDate         DateTime @default(now())             
+  updateDate         DateTime @updatedAt                    
+  isDeleted          Boolean  @default(false)               
+  isShow             Boolean  @default(false)
+  value1             String?  @db.LongText
+  value2             String?  @db.LongText
+  value3             String?  @db.LongText
+  number1            Float?   @default(0)
+  number2            Float?   @default(0)
+  number3            Float?   @default(0)
+  bool1              Boolean? @default(false)
+  bool2              Boolean? @default(false)
+  bool3              Boolean? @default(false)
+}
+ 

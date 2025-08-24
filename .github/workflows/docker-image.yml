@@ -1,0 +1,51 @@
+name: Build and Push Docker Images
+
+on:
+  push:
+    branches:
+      - main  # hoặc 'master' nếu bro dùng branch đó
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.TINTHANHTV2014 }}
+
+      - name: Build & push product-service
+        uses: docker/build-push-action@v5
+        with:
+          context: ./microservices/product-service
+          push: true
+          tags: tinthanhtv2014/product-service:latest
+
+      - name: Build & push content-service
+        uses: docker/build-push-action@v5
+        with:
+          context: ./microservices/content-service
+          push: true
+          tags: tinthanhtv2014/content-service:latest
+
+      - name: Build & push order-service
+        uses: docker/build-push-action@v5
+        with:
+          context: ./microservices/order-service
+          push: true
+          tags: tinthanhtv2014/order-service:latest
+
+      - name: Build & push user-service
+        uses: docker/build-push-action@v5
+        with:
+          context: ./microservices/user-service
+          push: true
+          tags: tinthanhtv2014/user-service:latest

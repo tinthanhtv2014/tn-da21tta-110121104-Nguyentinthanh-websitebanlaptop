@@ -1,0 +1,87 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL") // Cấu hình URL kết nối cơ sở dữ liệu từ .env
+}
+
+model administrative_regions {
+  id           Int         @id
+  name         String      @db.VarChar(255)
+  name_en      String      @db.VarChar(255)
+  code_name    String?     @db.VarChar(255)
+  code_name_en String?     @db.VarChar(255)
+  provinces    provinces[]
+}
+
+model administrative_units {
+  id            Int         @id
+  full_name     String?     @db.VarChar(255)
+  full_name_en  String?     @db.VarChar(255)
+  short_name    String?     @db.VarChar(255)
+  short_name_en String?     @db.VarChar(255)
+  code_name     String?     @db.VarChar(255)
+  code_name_en  String?     @db.VarChar(255)
+  districts     districts[]
+  provinces     provinces[]
+  wards         wards[]
+}
+
+model districts {
+  code                   String                @id @db.VarChar(20)
+  name                   String                @db.VarChar(255)
+  name_en                String?               @db.VarChar(255)
+  full_name              String?               @db.VarChar(255)
+  full_name_en           String?               @db.VarChar(255)
+  code_name              String?               @db.VarChar(255)
+  province_code          String?               @db.VarChar(20)
+  administrative_unit_id Int?
+  administrative_units   administrative_units? @relation(fields: [administrative_unit_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  provinces              provinces?            @relation(fields: [province_code], references: [code], onDelete: NoAction, onUpdate: NoAction)
+  wards                  wards[]
+
+  @@index([province_code], map: "idx_districts_province")
+  @@index([administrative_unit_id], map: "idx_districts_unit")
+}
+
+model provinces {
+  code                     String                  @id @db.VarChar(20)
+  name                     String                  @db.VarChar(255)
+  name_en                  String?                 @db.VarChar(255)
+  full_name                String                  @db.VarChar(255)
+  full_name_en             String?                 @db.VarChar(255)
+  code_name                String?                 @db.VarChar(255)
+  administrative_unit_id   Int?
+  administrative_region_id Int?
+  districts                districts[]
+  administrative_regions   administrative_regions? @relation(fields: [administrative_region_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  administrative_units     administrative_units?   @relation(fields: [administrative_unit_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  lat                      Float                   @default(0.0)
+  lng                      Float                   @default(0.0)                    
+  @@index([administrative_region_id], map: "idx_provinces_region")
+  @@index([administrative_unit_id], map: "idx_provinces_unit")
+}
+
+model wards {
+  code                   String                @id @db.VarChar(20)
+  name                   String                @db.VarChar(255)
+  name_en                String?               @db.VarChar(255)
+  full_name              String?               @db.VarChar(255)
+  full_name_en           String?               @db.VarChar(255)
+  code_name              String?               @db.VarChar(255)
+  district_code          String?               @db.VarChar(20)
+  administrative_unit_id Int?
+  administrative_units   administrative_units? @relation(fields: [administrative_unit_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  districts              districts?            @relation(fields: [district_code], references: [code], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([district_code], map: "idx_wards_district")
+  @@index([administrative_unit_id], map: "idx_wards_unit")
+}
