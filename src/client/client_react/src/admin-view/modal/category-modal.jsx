@@ -10,7 +10,7 @@ import {
   Autocomplete,
 } from "@mui/material";
 import categoryService from "../../services/category-service";
-
+import { toast } from "react-toastify";
 const style = {
   position: "absolute",
   top: "50%",
@@ -49,6 +49,11 @@ const CategoryModalMui = ({ open, onClose, onSubmit, initialData = null }) => {
   };
 
   const handleSubmit = async () => {
+    if (!formData.name) {
+      toast.error("Danh mục là bắt buộc!");
+      return;
+    }
+
     const payload = {
       name: formData.name,
     };

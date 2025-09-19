@@ -35,47 +35,16 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SettingsIcon from "@mui/icons-material/Settings";
 import orderService from "../../services/order-service";
 import accountService from "../../services/user-service";
+import { toast } from "react-toastify";
 import { useState, useEffect } from "react";
-const stats = [
-  {
-    label: "Total Views",
-    value: "442,236",
-    trend: "+56.9%",
-    bgColor: "#1976d2",
-  },
-  {
-    label: "Total Users",
-    value: "78,250",
-    trend: "+70.5%",
-    bgColor: "#9c27b0",
-  },
-  { label: "Comments", value: "95", trend: "-12.0%", bgColor: "#ff9800" },
-  { label: "Feedbacks", value: "120", trend: "+8.3%", bgColor: "#2e7d32" },
-];
+import { io } from "socket.io-client";
+import {
+  NovuProvider,
+  PopoverNotificationCenter,
+  NotificationBell,
+} from "@novu/notification-center";
+
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#A020F0"];
-const recentOrders = [
-  {
-    id: "84564564",
-    name: "Camera Lens",
-    qty: 40,
-    status: "Rejected",
-    amount: "$40,570",
-  },
-  {
-    id: "84564565",
-    name: "Laptop",
-    qty: 300,
-    status: "Pending",
-    amount: "$180,139",
-  },
-  {
-    id: "84564566",
-    name: "Mobile",
-    qty: 355,
-    status: "Approved",
-    amount: "$180,139",
-  },
-];
 
 const notifications = [
   {
@@ -95,12 +64,7 @@ const notifications = [
   },
 ];
 
-const chartData = [
-  { name: "Tháng 1", views: 1000, orders: 400 },
-  { name: "Tháng 2", views: 2000, orders: 600 },
-  { name: "Tháng 3", views: 1500, orders: 900 },
-];
-
+const socket = io(`${process.env.REACT_APP_API_BASE_URL_ORDER}`);
 export default function DashboardContent() {
   const [orderStat, setOrderStat] = useState([]);
   const [topProduct, setTopproduct] = useState([]);
@@ -116,6 +80,18 @@ export default function DashboardContent() {
     fetchUserMonthlyStats();
     fetchProductTopAlltime();
   }, []);
+
+  // useEffect(() => {
+  //   socket.on("newOrder", (data) => {
+  //     console.log("📦 Đơn hàng mới:", data);
+  //     // Ở đây có thể show notification MUI Snackbar
+  //     toast.success(`📦 Đơn hàng mới: ${data || "Chưa có mã"}`);
+  //   });
+
+  //   return () => {
+  //     socket.off("newOrder");
+  //   };
+  // }, []);
 
   const fetchOrderStatusStat = async () => {
     const response = await orderService.getOrderStatusStats();
@@ -260,7 +236,7 @@ export default function DashboardContent() {
               </Card>
             </Grid>
           ))}
-        <Grid item xs={12} md={4}>
+        {/* <Grid item xs={12} md={4}>
           <Card sx={{ backgroundColor: "#e3f2fd", borderRadius: 2 }}>
             <CardContent>
               <Typography variant="h6" gutterBottom>
@@ -276,8 +252,8 @@ export default function DashboardContent() {
               </List>
             </CardContent>
           </Card>
-        </Grid>
-        <Grid item xs={12} md={6}>
+        </Grid> */}
+        {/* <Grid item xs={12} md={6}>
           <Card sx={{ borderRadius: 2, backgroundColor: "#e8f5e9" }}>
             <CardContent>
               <Typography
@@ -331,7 +307,7 @@ export default function DashboardContent() {
               </List>
             </CardContent>
           </Card>
-        </Grid>
+        </Grid> */}
         <Grid container spacing={2} mt={2}>
           <Grid item xs={6}>
             <Card sx={{ borderRadius: 2 }}>

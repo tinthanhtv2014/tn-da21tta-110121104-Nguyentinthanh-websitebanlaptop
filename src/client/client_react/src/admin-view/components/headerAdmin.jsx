@@ -12,13 +12,22 @@ import {
 } from "@mui/material";
 import { AccountCircle } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
-
+import {
+  NovuProvider,
+  PopoverNotificationCenter,
+  NotificationBell,
+} from "@novu/notification-center";
+import { Inbox } from "@novu/react";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../redux/authSlice";
 import Cookies from "js-cookie";
 import axios from "axios";
 import accountService from "../../services/user-service";
 import { jwtDecode } from "jwt-decode";
+import { io } from "socket.io-client";
+import { toast } from "react-toastify";
+import audio from "../../public/sounds/woooooaah-199849.mp3";
+const socket = io(`${process.env.REACT_APP_API_BASE_URL_ORDER}`);
 const HeaderAdmin = () => {
   const { isAuthenticated } = useSelector((state) => state.auth);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -29,6 +38,31 @@ const HeaderAdmin = () => {
   const [localUser, setLocalUser] = useState(null); // Thông tin user lấy từ API
   const [timeLeft, setTimeLeft] = useState(null); // thời gian còn lại (s)
   const [currentTime, setCurrentTime] = useState(new Date());
+
+  useEffect(() => {
+    socket.on("newOrder", (data) => {
+      console.log("📦 Đơn hàng mới:", data.order.createDate);
+
+      // 🔔 Play sound
+      const audio = new Audio("/sounds/woooooaah-199849.mp3");
+      audio.play().catch((err) => console.log("Không thể phát âm thanh:", err));
+
+      // ✅ Toast
+      toast.success(
+        `📦 Bạn có đơn hàng mới vào lúc ${new Date(
+          data.order.createDate
+        ).toLocaleTimeString("vi-VN", {
+          hour: "2-digit",
+          minute: "2-digit",
+        })} ngày ${new Date(data.order.createDate).toLocaleDateString("vi-VN")}`
+      );
+    });
+
+    return () => {
+      socket.off("newOrder");
+    };
+  }, []);
+
   useEffect(() => {
     const fetchUser = async () => {
       const accessToken = localStorage.getItem("accessToken");
@@ -153,6 +187,10 @@ const HeaderAdmin = () => {
         </Box>
 
         <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Inbox
+            applicationIdentifier="qFuYU1AF59Tg"
+            subscriber="683eb68ef43b5880d26da61e"
+          />
           {isAuthenticated ? (
             <>
               <Button

@@ -189,22 +189,51 @@ const RecommendationList = ({ productId, topK = 8 }) => {
   }
 
   return (
-    <Box sx={{ mt: 3, mb: 3 }} spacing={2}>
+    <Box sx={{ mt: 3, mb: 3 }}>
       <Typography variant="h5" gutterBottom>
         🔮 Sản phẩm gợi ý
       </Typography>
-      <Grid container spacing={2}>
+
+      <Box
+        sx={{
+          display: "flex",
+          gap: 2,
+          overflowX: "auto",
+          scrollSnapType: "x mandatory",
+          "&::-webkit-scrollbar": {
+            height: 8,
+          },
+          "&::-webkit-scrollbar-thumb": {
+            backgroundColor: "#FF5733",
+            borderRadius: 4,
+          },
+          "&::-webkit-scrollbar-track": {
+            backgroundColor: "#f0f0f0",
+          },
+        }}
+      >
         {recommendations.map((product) => (
-          <Grid item xs={12} sm={6} md={2.4} key={product.product_id}>
+          <Box
+            key={product.product_id}
+            sx={{
+              flex: "0 0 auto", // giữ kích thước cố định, không co giãn
+              width: {
+                xs: "80%", // trên mobile: rộng để kéo
+                sm: "45%", // tablet: 2 sp/ màn
+                md: "20%", // desktop: 5 sp/ màn
+              },
+              scrollSnapAlign: "start",
+            }}
+          >
             <ProductCard
               product={product}
               liked={likedProducts.includes(product.id)}
               onToggleLike={handleWishlistToggle}
               onAddToCart={handleAddToCart}
             />
-          </Grid>
+          </Box>
         ))}
-      </Grid>
+      </Box>
     </Box>
   );
 };

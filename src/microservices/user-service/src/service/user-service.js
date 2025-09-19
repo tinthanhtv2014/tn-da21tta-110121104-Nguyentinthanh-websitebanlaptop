@@ -11,9 +11,9 @@ const nodemailer = require("nodemailer");
 const client = new OAuth2Client(
   "314663906441-s82hmdgf6mkdt9svna8ti2d530kb6d7l.apps.googleusercontent.com"
 );
-// const twilio = require("twilio");
-// const accountSid = "AC27ca440e16221fc8ccb26f5773650a37"; // Lấy trong Twilio Console
-// const authToken = "989c5c2431e0d70ef90e6bf334d11482";
+const twilio = require("twilio");
+const accountSid = "AC27ca440e16221fc8ccb26f5773650a37"; // Lấy trong Twilio Console
+const authToken = "989c5c2431e0d70ef90e6bf334d11482";
 const clientTwilio = new twilio(accountSid, authToken);
 // Auto-generate privateKey based on GuildId
 const { parsePhoneNumberFromString } = require("libphonenumber-js");

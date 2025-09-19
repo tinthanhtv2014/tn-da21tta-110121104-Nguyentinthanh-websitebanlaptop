@@ -33,7 +33,7 @@ const ProductCard = ({ product, liked, onToggleLike, onAddToCart }) => {
         boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
         transition: "transform 0.3s ease, box-shadow 0.3s ease",
         "&:hover": {
-          transform: "scale(1.05)",
+          // transform: "scale(1.05)",
           boxShadow: "0 10px 20px rgba(0, 0, 0, 0.15)",
         },
       }}
@@ -64,10 +64,18 @@ const ProductCard = ({ product, liked, onToggleLike, onAddToCart }) => {
         <Stack direction="row" justifyContent="space-between">
           <Typography
             variant="h6"
-            sx={{ fontWeight: "bold", color: "#FF5733", flex: 1 }}
+            sx={{
+              fontWeight: "bold",
+              color: "#FF5733",
+              flex: 1,
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
           >
             {product.name}
           </Typography>
+
           <IconButton
             onClick={() => onToggleLike(product.id)}
             sx={{
@@ -87,36 +95,49 @@ const ProductCard = ({ product, liked, onToggleLike, onAddToCart }) => {
             <Typography variant="h6" fontWeight="bold" color="error.main">
               {discountedPrice.toLocaleString("vi-VN")}₫
               {discount > 0 && (
-                <Typography
-                  component="span"
-                  variant="body2"
-                  sx={{
-                    backgroundColor: "error.main",
-                    color: "white",
-                    padding: "2px 6px",
-                    borderRadius: "4px",
-                    marginLeft: 1,
-                    fontWeight: "bold",
-                  }}
-                >
-                  -{discount}%
-                </Typography>
+                <>
+                  <Typography
+                    component="span"
+                    variant="body2"
+                    sx={{
+                      backgroundColor: "error.main",
+                      color: "white",
+                      padding: "2px 6px",
+                      borderRadius: "4px",
+                      marginLeft: 1,
+                      fontWeight: "bold",
+                      display: "inline-block",
+                    }}
+                  >
+                    -{discount}%
+                  </Typography>
+                  <Typography
+                    component="span"
+                    variant="body2"
+                    sx={{
+                      textDecoration: "line-through",
+                      color: "text.secondary",
+                      marginLeft: 1,
+                      display: "inline-block",
+                    }}
+                  >
+                    {product.price?.toLocaleString("vi-VN")}₫
+                  </Typography>
+                </>
               )}
             </Typography>
 
             {discount > 0 && (
               <Typography
                 variant="body2"
-                sx={{
-                  textDecoration: "line-through",
-                  color: "text.secondary",
-                }}
+                color="success.main"
+                fontWeight="bold"
               >
-                {product.price?.toLocaleString("vi-VN")}₫
+                Tiết kiệm:{" "}
+                {(product.price - discountedPrice)?.toLocaleString("vi-VN")}₫
               </Typography>
             )}
-
-            {discount > 0 && (
+            {/* {discount > 0 && (
               <Typography
                 variant="body2"
                 color="success.main"
@@ -125,17 +146,7 @@ const ProductCard = ({ product, liked, onToggleLike, onAddToCart }) => {
                 Tiết kiệm:{" "}
                 {(product.price - discountedPrice)?.toLocaleString("vi-VN")}₫
               </Typography>
-            )}
-            {discount > 0 && (
-              <Typography
-                variant="body2"
-                color="success.main"
-                fontWeight="bold"
-              >
-                Tiết kiệm:{" "}
-                {(product.price - discountedPrice)?.toLocaleString("vi-VN")}₫
-              </Typography>
-            )}
+            )} */}
           </Stack>
         ) : (
           <Typography variant="h6">

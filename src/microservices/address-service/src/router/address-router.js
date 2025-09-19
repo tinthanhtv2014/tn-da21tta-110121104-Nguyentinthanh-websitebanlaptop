@@ -40,74 +40,74 @@ router.get("/province", async (req, res) => {
   }
 });
 
-/**
- * @openapi
- * /api/address/district/{id}:
- *   get:
- *     tags:
- *       - DISTRICT
- *     summary: Lấy thông tin người dùng theo ID
- *     description: Trả về thông tin chi tiết của người dùng theo ID.
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: ID của người dùng cần tìm
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Thông tin người dùng
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: integer
- *                 emailAddress:
- *                   type: string
- *                 firstName:
- *                   type: string
- *                 lastName:
- *                   type: string
- *                 fullName:
- *                   type: string
- *                 phoneNumber:
- *                   type: string
- *                 address:
- *                   type: string
- *                 points:
- *                   type: integer
- *                 status:
- *                   type: string
- *                 createDate:
- *                   type: string
- *                   format: date-time
- *                 updateDate:
- *                   type: string
- *                   format: date-time
- *                 isDeleted:
- *                   type: boolean
- *                 listTenant:
- *                   type: string
- *                 role:
- *                   type: integer
- *       404:
- *         description: Người dùng không tồn tại
- */
-router.get("/district/:id", async (req, res) => {
-  try {
-    const user = await addressService.getDistrictId(req.params.id);
-    if (user) {
-      res.json(user);
-    } else {
-      res.status(404).json({ error: "Người dùng không tồn tại" });
-    }
-  } catch (error) {
-    res.status(500).json({ error: "Lỗi khi lấy thông tin người dùng" });
-  }
-});
+// /**
+//  * @openapi
+//  * /api/address/district/{id}:
+//  *   get:
+//  *     tags:
+//  *       - DISTRICT
+//  *     summary: Lấy thông tin người dùng theo ID
+//  *     description: Trả về thông tin chi tiết của người dùng theo ID.
+//  *     parameters:
+//  *       - in: path
+//  *         name: id
+//  *         required: true
+//  *         description: ID của người dùng cần tìm
+//  *         schema:
+//  *           type: string
+//  *     responses:
+//  *       200:
+//  *         description: Thông tin người dùng
+//  *         content:
+//  *           application/json:
+//  *             schema:
+//  *               type: object
+//  *               properties:
+//  *                 id:
+//  *                   type: integer
+//  *                 emailAddress:
+//  *                   type: string
+//  *                 firstName:
+//  *                   type: string
+//  *                 lastName:
+//  *                   type: string
+//  *                 fullName:
+//  *                   type: string
+//  *                 phoneNumber:
+//  *                   type: string
+//  *                 address:
+//  *                   type: string
+//  *                 points:
+//  *                   type: integer
+//  *                 status:
+//  *                   type: string
+//  *                 createDate:
+//  *                   type: string
+//  *                   format: date-time
+//  *                 updateDate:
+//  *                   type: string
+//  *                   format: date-time
+//  *                 isDeleted:
+//  *                   type: boolean
+//  *                 listTenant:
+//  *                   type: string
+//  *                 role:
+//  *                   type: integer
+//  *       404:
+//  *         description: Người dùng không tồn tại
+//  */
+// router.get("/district/:id", async (req, res) => {
+//   try {
+//     const user = await addressService.getDistrictId(req.params.id);
+//     if (user) {
+//       res.json(user);
+//     } else {
+//       res.status(404).json({ error: "Người dùng không tồn tại" });
+//     }
+//   } catch (error) {
+//     res.status(500).json({ error: "Lỗi khi lấy thông tin người dùng" });
+//   }
+// });
 
 /**
  * @openapi

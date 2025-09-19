@@ -26,6 +26,8 @@ const CategoryListComponent = () => {
       sx={{
         p: 2,
         height: { xs: 300, sm: 400, md: 450 },
+        display: "flex",
+        flexDirection: "column",
       }}
     >
       <Typography
@@ -33,11 +35,16 @@ const CategoryListComponent = () => {
         gutterBottom
         sx={{ display: "flex", alignItems: "center" }}
       >
-        <CategoryIcon sx={{ mr: 1, color: "#inherit" }} />
+        <CategoryIcon sx={{ mr: 1, color: "inherit" }} />
         Danh mục sản phẩm
       </Typography>
 
-      <List>
+      <List
+        sx={{
+          flex: 1, // chiếm hết chỗ còn lại
+          overflowY: "auto", // cho phép scroll
+        }}
+      >
         {categories &&
           categories.map((category) => (
             <ListItem
@@ -47,7 +54,7 @@ const CategoryListComponent = () => {
               sx={{
                 borderRadius: 2,
                 "&:hover": {
-                  backgroundColor: "#inherit",
+                  backgroundColor: "inherit",
                   boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
                   borderLeft: "4px solid #ff9800",
                 },
@@ -58,7 +65,7 @@ const CategoryListComponent = () => {
                 primary={category.name}
                 sx={{
                   fontWeight: "bold",
-                  color: "#inherit",
+                  color: "inherit",
                   "&:hover": {
                     color: "#e91e63",
                   },

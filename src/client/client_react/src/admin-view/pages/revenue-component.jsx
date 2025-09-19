@@ -125,13 +125,13 @@ const RevenueComponent = () => {
       <h2>📋 Thống kê doanh thu</h2>
 
       {/* Giao diện tìm kiếm */}
-      <input
+      {/* <input
         type="text"
         placeholder="Tìm kiếm..."
         value={searchTerm}
         onChange={handleSearch}
         style={{ marginBottom: "1rem", padding: "0.5rem" }}
-      />
+      /> */}
 
       {/* Giao diện lọc động */}
       <DynamicSearchSort

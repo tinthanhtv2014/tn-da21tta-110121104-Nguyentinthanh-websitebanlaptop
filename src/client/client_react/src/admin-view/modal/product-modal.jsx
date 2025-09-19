@@ -134,6 +134,15 @@ const ProductModalMui = ({
       toast.error("Tên sản phẩm là bắt buộc!");
       return;
     }
+    if (!formData.categoryId) {
+      toast.error("Danh mục là bắt buộc!");
+      return;
+    }
+
+    if (!formData.type) {
+      toast.error("Loại sản phẩm là bắt buộc!");
+      return;
+    }
 
     if (!formData.price || formData.price === 0) {
       toast.error("Giá không được bằng 0!");

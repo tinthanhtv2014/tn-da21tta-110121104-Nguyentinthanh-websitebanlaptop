@@ -172,9 +172,75 @@ const ProductCategoryComponent = ({ categoryId, categoryName }) => {
 
   return (
     <Box sx={{ padding: "20px" }}>
-      <Typography variant="h5" sx={{ mb: 2, color: "#FF5733" }}>
-        Sản phẩm nổi bật: {categoryName}
-      </Typography>
+      {products && products.length > 0 && (
+        <Box sx={{ display: "flex", alignItems: "center", my: 4 }}>
+          {/* Line bên trái */}
+          <Box sx={{ flex: 1, height: "4px", backgroundColor: "#FF5733" }} />
+
+          {/* Khung chữ + 2 tam giác */}
+          <Box
+            sx={{
+              position: "relative",
+              border: "2px solid #FF5733",
+              borderRadius: "8px",
+              px: 4,
+              py: 1.5,
+              mx: 2,
+              backgroundColor: "#fff",
+              boxShadow: "0px 4px 12px rgba(0,0,0,0.15)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            {/* Tam giác bên trái */}
+            <Box
+              sx={{
+                position: "absolute",
+                left: "-12px",
+                top: "50%",
+                transform: "translateY(-50%)",
+                width: 0,
+                height: 0,
+                borderTop: "12px solid transparent",
+                borderBottom: "12px solid transparent",
+                borderRight: "12px solid #FF5733",
+              }}
+            />
+
+            <Typography
+              variant="h6"
+              sx={{
+                fontWeight: "bold",
+                color: "#FF5733",
+                textTransform: "uppercase",
+                letterSpacing: 1,
+              }}
+            >
+              {categoryName}
+            </Typography>
+
+            {/* Tam giác bên phải */}
+            <Box
+              sx={{
+                position: "absolute",
+                right: "-12px",
+                top: "50%",
+                transform: "translateY(-50%)",
+                width: 0,
+                height: 0,
+                borderTop: "12px solid transparent",
+                borderBottom: "12px solid transparent",
+                borderLeft: "12px solid #FF5733",
+              }}
+            />
+          </Box>
+
+          {/* Line bên phải */}
+          <Box sx={{ flex: 1, height: "4px", backgroundColor: "#FF5733" }} />
+        </Box>
+      )}
+
       <Grid container spacing={3}>
         {products &&
           products.map((product) => {
@@ -185,8 +251,7 @@ const ProductCategoryComponent = ({ categoryId, categoryName }) => {
                     ((product.price - product.salePrice) / product.price) * 100
                   )
                 : 0;
-            console.log("check discount", product.price);
-            console.log("check discount", product.salePrice);
+
             const discountedPrice = product.salePrice;
             const discountAmount = product.price - product.salePrice;
             return (
@@ -200,7 +265,7 @@ const ProductCategoryComponent = ({ categoryId, categoryName }) => {
                     boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)", // Shadow
                     transition: "transform 0.3s ease, box-shadow 0.3s ease", // Smooth transition for hover
                     "&:hover": {
-                      transform: "scale(1.05)", // Scale effect on hover
+                      // transform: "scale(1.05)", // Scale effect on hover
                       boxShadow: "0 10px 20px rgba(0, 0, 0, 0.15)", // Bigger shadow on hover
                     },
                   }}
@@ -233,10 +298,18 @@ const ProductCategoryComponent = ({ categoryId, categoryName }) => {
                     >
                       <Typography
                         variant="h6"
-                        sx={{ fontWeight: "bold", color: "#FF5733" }}
+                        sx={{
+                          fontWeight: "bold",
+                          color: "#FF5733",
+                          flex: 1,
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                        }}
                       >
                         {product.name}
                       </Typography>
+
                       <IconButton
                         onClick={() => handleWishlistToggle(product.id)}
                         sx={{
@@ -268,23 +341,38 @@ const ProductCategoryComponent = ({ categoryId, categoryName }) => {
                         >
                           {discountedPrice.toLocaleString("vi-VN")}₫
                           {discount > 0 && (
-                            <Typography
-                              component="span"
-                              variant="body2"
-                              sx={{
-                                backgroundColor: "error.main",
-                                color: "white",
-                                padding: "2px 6px",
-                                borderRadius: "4px",
-                                marginLeft: 1,
-                                fontWeight: "bold",
-                              }}
-                            >
-                              -{discount}%
-                            </Typography>
+                            <>
+                              <Typography
+                                component="span"
+                                variant="body2"
+                                sx={{
+                                  backgroundColor: "error.main",
+                                  color: "white",
+                                  padding: "2px 6px",
+                                  borderRadius: "4px",
+                                  marginLeft: 1,
+                                  fontWeight: "bold",
+                                  display: "inline-block",
+                                }}
+                              >
+                                -{discount}%
+                              </Typography>
+                              <Typography
+                                component="span"
+                                variant="body2"
+                                sx={{
+                                  textDecoration: "line-through",
+                                  color: "text.secondary",
+                                  marginLeft: 1,
+                                  display: "inline-block",
+                                }}
+                              >
+                                {product.price?.toLocaleString("vi-VN")}₫
+                              </Typography>
+                            </>
                           )}
                         </Typography>
-
+                        {/* 
                         {discount > 0 && (
                           <Typography
                             variant="body2"
@@ -295,7 +383,7 @@ const ProductCategoryComponent = ({ categoryId, categoryName }) => {
                           >
                             {product.price?.toLocaleString("vi-VN")}₫
                           </Typography>
-                        )}
+                        )} */}
 
                         {discount > 0 && (
                           <Typography
@@ -310,7 +398,7 @@ const ProductCategoryComponent = ({ categoryId, categoryName }) => {
                             ₫
                           </Typography>
                         )}
-                        {discount > 0 && (
+                        {/* {discount > 0 && (
                           <Typography
                             variant="body2"
                             color="success.main"
@@ -322,7 +410,7 @@ const ProductCategoryComponent = ({ categoryId, categoryName }) => {
                             )}
                             ₫
                           </Typography>
-                        )}
+                        )} */}
                       </Stack>
                     ) : (
                       <Typography variant="h6">
@@ -360,6 +448,39 @@ const ProductCategoryComponent = ({ categoryId, categoryName }) => {
             );
           })}
       </Grid>
+      {products && products.length > 0 && (
+        <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+          <Button
+            variant="contained"
+            onClick={() => navigate(`/category/${categoryId}`)}
+            sx={{
+              width: "60%", // nút dài ngang
+              maxWidth: "400px",
+              borderRadius: "30px",
+              textTransform: "none",
+              fontWeight: "bold",
+              px: 5,
+              py: 1.5,
+              fontSize: "1.2rem",
+              background: "linear-gradient(to right, #FF5733 50%, #ffffff 50%)",
+              backgroundSize: "200% 100%",
+              backgroundPosition: "right bottom",
+              color: "#FF5733",
+              border: "2px solid #FF5733",
+              transition: "all 0.4s ease",
+              "&:hover": {
+                backgroundPosition: "left bottom", // hiệu ứng quét từ trái sang phải
+                color: "#fff",
+                borderColor: "#FF5733",
+                transform: "translateY(-3px)",
+                boxShadow: "0px 6px 20px rgba(255,87,51,0.4)", // bóng cam
+              },
+            }}
+          >
+            🚀 Xem thêm
+          </Button>
+        </Box>
+      )}
     </Box>
   );
 };

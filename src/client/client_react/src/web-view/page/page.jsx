@@ -28,6 +28,11 @@ import banner2 from "../../image/chu_t.png";
 import slider1 from "../../image/gearvn-laptop-gigabyte-rtx-50-series-slider-t7.jpg";
 import slider2 from "../../image/man_hinh_thang_04_banner_web_slider_800x400.jpg";
 import slider3 from "../../image/thang_06_laptop_gaming_800x400_-_web_slider.jpg";
+import banner3 from "../../image/gearvn-laptop-gaming-slider-bot-t8.png";
+import banner4 from "../../image/gearvn-laptop-van-phong-slider-bot-t8.png";
+import banner5 from "../../image/gearvn-laptop-gigabyte-rtx-50-series-slider-t7.jpg";
+import banner6 from "../../image/gearvn-man-hinh-sub-t8.png";
+const banners2 = [banner1, banner2, banner3, banner4];
 const banners = [
   {
     id: 1,
@@ -212,7 +217,7 @@ const MainPage = () => {
       {/* Banner hàng ngang bên dưới */}
       <Box sx={{ mt: 4 }}>
         <Grid container spacing={2}>
-          {[1, 2, 3, 4].map((i) => (
+          {banners2.map((img, i) => (
             <Grid item xs={12} sm={6} md={3} key={i}>
               <Box
                 sx={{
@@ -222,10 +227,16 @@ const MainPage = () => {
                   height: 150,
                 }}
               >
-                <img
-                  src={`https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=1200&q=80`}
-                  alt={`Banner ${i}`}
-                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                <Box
+                  component="img"
+                  src={img}
+                  alt={`Banner ${i + 1}`}
+                  sx={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover", // fill khít container
+                    display: "block",
+                  }}
                 />
                 <Box
                   sx={{
@@ -239,7 +250,7 @@ const MainPage = () => {
                     p: 1,
                   }}
                 >
-                  <Typography variant="subtitle1">Banner {i}</Typography>
+                  {/* có thể thêm text nếu cần */}
                 </Box>
               </Box>
             </Grid>

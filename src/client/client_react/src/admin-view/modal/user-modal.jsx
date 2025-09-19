@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import accountService from "../../services/user-service";
 import roleService from "../../services/role-service";
+import { toast } from "react-toastify";
 const style = {
   position: "absolute",
   top: "50%",
@@ -90,8 +91,15 @@ const UserModalMui = ({ open, onClose, onSubmit, initialData = null }) => {
   };
 
   const handleSubmit = async () => {
+    if (!formData.emailAddress) {
+      toast.error("Email là bắt buộc khi thêm mới người dùng.");
+
+      return;
+    }
+
     if (!initialData && !formData.password) {
-      alert("Mật khẩu là bắt buộc khi thêm mới người dùng.");
+      toast.error("Mật khẩu là bắt buộc khi thêm mới người dùng.");
+
       return;
     }
     console.log("sdahsdljahsdfasf", initialData);

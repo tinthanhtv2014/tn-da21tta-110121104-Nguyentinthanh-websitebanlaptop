@@ -201,6 +201,8 @@ async function deleteProduct(id) {
 async function getProductByCategoryId(categoryId) {
   try {
     const fillter = productRepository.reneRateInputFilter();
+    fillter.pageSize = 10;
+    fillter.orderBy = [{ updatedAt: "desc" }];
     if (categoryId && parseInt(categoryId) !== 0) {
       fillter.where = [{ categoryId: parseInt(categoryId) }];
     }

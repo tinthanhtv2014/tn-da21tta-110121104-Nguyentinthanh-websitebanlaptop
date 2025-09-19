@@ -42,21 +42,21 @@ export const adminMenu = [
     ],
   },
 
-  {
-    title: "Quản lý slider",
-    path: "/admin/slider",
-    icon: <SlideshowIcon />,
-  },
+  // {
+  //   title: "Quản lý slider",
+  //   path: "/admin/slider",
+  //   icon: <SlideshowIcon />,
+  // },
   {
     title: "Quản lý bình luận",
     path: "/admin/binh-luan",
     icon: <CommentIcon />,
   },
-  {
-    title: "Quản lý đánh giá",
-    path: "/admin/danh-gia",
-    icon: <StarRateIcon />,
-  },
+  // {
+  //   title: "Quản lý đánh giá",
+  //   path: "/admin/danh-gia",
+  //   icon: <StarRateIcon />,
+  // },
   {
     title: "Quản lý voucher",
     path: "/admin/voucher",

@@ -248,7 +248,7 @@ const HeaderUser = () => {
                   left: "24px",
                   zIndex: 10,
                   width: 350,
-                  backgroundColor: "inherit",
+                  backgroundColor: "white",
                   boxShadow: 3,
                   borderRadius: 1,
                   maxHeight: 300,

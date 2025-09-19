@@ -5,6 +5,8 @@ const crypto = require("crypto");
 const axios = require("axios");
 const querystring = require("qs");
 const moment = require("moment");
+const { Novu } = require("@novu/node");
+const { io } = require("../app"); // import io từ file server chính
 const {
   VNPay,
   ignoreLogger,
@@ -12,6 +14,9 @@ const {
   VnpLocale,
   dateFormat,
 } = require("vnpay");
+const novu = new Novu({
+  secretKey: process.env["NOVU_SECRET_KEY"],
+});
 /**
  * @openapi
  * /api/orders:
@@ -295,13 +300,46 @@ router.get("/:id", async (req, res) => {
  */
 
 router.post("/", async (req, res) => {
-  try {
-    console.log("sdjlahsdjlasd,", req.body);
-    const newUser = await orderService.createOrder(req.body);
-    res.status(201).json(newUser);
-  } catch (error) {
-    res.status(500).json({ error: "Lỗi khi tạo người dùng" });
+  // try {
+  const newUser = await orderService.createOrder(req.body);
+  if (newUser) {
+    req.io.emit("newOrder", {
+      message: "Có đơn hàng mới!",
+      order: newUser,
+    });
+
+    await novu.trigger("order-notify", {
+      to: {
+        subscriberId: "683eb68ef43b5880d26da61e",
+        email: "tinthanhtv2014@gmail.com",
+      },
+      payload: {
+        orderId: newUser.orderId,
+        productName: newUser.productName || "sản phẩm",
+        customerName: newUser.customerName || "hehe",
+        totalAmount: newUser.total || 100000,
+        orderTime: new Date(),
+      },
+    });
+
+    // await novu.trigger("order-notify", {
+    //   to: {
+    //     subscriberId: "683eb68ef43b5880d26da61e",
+    //     email: "tinthanhtv2014@gmail.com",
+    //   },
+    //   payload: {
+    //     orderId: order.id,
+    //     productName: order.productName || "sản phẩm",
+    //     customerName: order.customerName || "hehe",
+    //     totalAmount: order.total || 100000,
+    //   },
+    // });
   }
+
+  res.status(201).json(newUser);
+  // } catch (error) {
+  //   res.status(500).json({ error: "Lỗi khi tạo người dùng" });
+  // }
 });
 
 /**

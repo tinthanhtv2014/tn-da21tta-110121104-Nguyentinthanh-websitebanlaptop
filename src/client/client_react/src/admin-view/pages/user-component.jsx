@@ -124,13 +124,13 @@ const UserComponent = () => {
       <h2>📋 Danh sách người dùng</h2>
 
       {/* Giao diện tìm kiếm */}
-      <input
+      {/* <input
         type="text"
         placeholder="Tìm kiếm..."
         value={searchTerm}
         onChange={handleSearch}
         style={{ marginBottom: "1rem", padding: "0.5rem" }}
-      />
+      /> */}
 
       {/* Giao diện lọc động */}
       <DynamicSearchSort

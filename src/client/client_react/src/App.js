@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
 import "./App.css";
-
+import { NovuProvider } from "@novu/notification-center";
 import GuardRoute from "./authentication/guardRoute";
 // import Navbar from "./share-view/navbar";
 import RouterView from "./web-view/router-view";
@@ -86,20 +86,24 @@ const RouterUser = () => (
 );
 
 const AdminLayout = () => (
-  <>
-    <HeaderAdmin />
-
-    <Grid container style={{ height: "100vh", marginTop: "64px" }}>
-      <Grid item xs={3} md={2.5}>
-        <NavBarAdmin />
+  <NovuProvider
+    subscriberId="683eb68ef43b5880d26da61e" // subscriberId khớp với BE
+    applicationIdentifier="qFuYU1AF59Tg"
+  >
+    <>
+      <HeaderAdmin />
+      <Grid container style={{ height: "100vh", marginTop: "64px" }}>
+        <Grid item xs={3} md={2.5}>
+          <NavBarAdmin />
+        </Grid>
+        <Grid item xs={9} md={9}>
+          <Routes>
+            <Route path="/*" element={<RouterAdmin />} />
+          </Routes>
+        </Grid>
       </Grid>
-      <Grid item xs={9} md={9}>
-        <Routes>
-          <Route path="/*" element={<RouterAdmin />} />
-        </Routes>
-      </Grid>
-    </Grid>
-  </>
+    </>
+  </NovuProvider>
 );
 
 export default App;

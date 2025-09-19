@@ -1,6 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Box, Typography, Grid, Pagination } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Grid,
+  Pagination,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+} from "@mui/material";
+
 import CategoryListComponent from "./category-component";
 import ProductCard from "../../share-component/product-card";
 import productService from "../../services/product-service";
@@ -15,24 +25,7 @@ const categories = [
   { id: 3, name: "Màn hình" },
 ];
 
-const allProducts = [
-  {
-    id: 1,
-    name: "Laptop Dell XPS",
-    price: 25000000,
-    categoryId: 1,
-    imageUrl: "https://via.placeholder.com/300x200?text=Dell+XPS",
-  },
-  {
-    id: 2,
-    name: "Laptop MacBook Pro",
-    price: 35000000,
-    categoryId: 1,
-    imageUrl: "https://via.placeholder.com/300x200?text=MacBook+Pro",
-  },
-];
-
-const ITEMS_PER_PAGE = 8;
+const ITEMS_PER_PAGE = 4;
 
 const CategoryPage = () => {
   const { categoryId } = useParams();
@@ -40,6 +33,9 @@ const CategoryPage = () => {
   const [likedProducts, setLikedProducts] = useState([]);
   const [page, setPage] = useState(1);
   const [UserId, setUserId] = useState(null);
+
+  const [sortOrder, setSortOrder] = useState(""); // asc | desc
+  const [priceFilter, setPriceFilter] = useState(""); // khoảng giá
 
   const token = localStorage.getItem("accessToken");
   useEffect(() => {
@@ -171,9 +167,23 @@ const CategoryPage = () => {
     }
   };
 
-  const totalPages = Math.ceil(products.length / ITEMS_PER_PAGE);
+  const filteredProducts = products.filter((p) => {
+    if (!priceFilter) return true;
+    if (priceFilter === "low") return p.price < 5000000;
+    if (priceFilter === "mid") return p.price >= 5000000 && p.price <= 15000000;
+    if (priceFilter === "high") return p.price > 15000000;
+    return true;
+  });
+
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
+    if (sortOrder === "asc") return a.price - b.price;
+    if (sortOrder === "desc") return b.price - a.price;
+    return 0;
+  });
+
+  const totalPages = Math.ceil(sortedProducts.length / ITEMS_PER_PAGE);
   const startIndex = (page - 1) * ITEMS_PER_PAGE;
-  const currentProducts = products.slice(
+  const currentProducts = sortedProducts.slice(
     startIndex,
     startIndex + ITEMS_PER_PAGE
   );
@@ -186,13 +196,13 @@ const CategoryPage = () => {
       </Box>
 
       {/* Banner */}
-      <Box sx={{ mb: 3 }}>
+      {/* <Box sx={{ mb: 3 }}>
         <img
           src="https://via.placeholder.com/1500x300?text=Banner+Category"
           alt="Banner"
           style={{ width: "100%", borderRadius: 8 }}
         />
-      </Box>
+      </Box> */}
 
       <Grid container spacing={2}>
         {/* Sidebar danh mục desktop */}
@@ -207,21 +217,89 @@ const CategoryPage = () => {
 
         {/* Danh sách sản phẩm */}
         <Grid item xs={12} md={9.6}>
-          <Typography variant="h4" gutterBottom>
-            Sản phẩm trong danh mục: {categoryId}
-          </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              mb: 4,
+              mt: 3, // đẩy xuống dưới
+            }}
+          >
+            <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+              Sản phẩm trong danh mục
+            </Typography>
 
-          <Grid container spacing={2}>
-            {currentProducts.map((product) => (
-              <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
-                <ProductCard
-                  product={product}
-                  liked={likedProducts.includes(product.id)}
-                  onToggleLike={handleWishlistToggle}
-                  onAddToCart={handleAddToCart}
-                />
+            <Box
+              sx={{
+                display: "flex",
+                gap: 2,
+                backgroundColor: "#f9f9f9",
+                p: 1.5,
+                borderRadius: 2,
+                boxShadow: "0 2px 6px rgba(0,0,0,0.08)",
+              }}
+            >
+              {/* Lọc theo giá */}
+              <FormControl size="small" sx={{ minWidth: 150 }}>
+                <InputLabel>Khoảng giá</InputLabel>
+                <Select
+                  value={priceFilter}
+                  label="Khoảng giá"
+                  onChange={(e) => {
+                    setPage(1);
+                    setPriceFilter(e.target.value);
+                  }}
+                >
+                  <MenuItem value="">Tất cả</MenuItem>
+                  <MenuItem value="low">Dưới 5 triệu</MenuItem>
+                  <MenuItem value="mid">5 - 15 triệu</MenuItem>
+                  <MenuItem value="high">Trên 15 triệu</MenuItem>
+                </Select>
+              </FormControl>
+
+              {/* Sắp xếp */}
+              <FormControl size="small" sx={{ minWidth: 150 }}>
+                <InputLabel>Sắp xếp</InputLabel>
+                <Select
+                  value={sortOrder}
+                  label="Sắp xếp"
+                  onChange={(e) => {
+                    setPage(1);
+                    setSortOrder(e.target.value);
+                  }}
+                >
+                  <MenuItem value="">Mặc định</MenuItem>
+                  <MenuItem value="asc">Giá tăng dần</MenuItem>
+                  <MenuItem value="desc">Giá giảm dần</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+          </Box>
+
+          <Grid container spacing={1}>
+            {currentProducts.length > 0 ? (
+              <Grid container spacing={2}>
+                {currentProducts.map((product) => (
+                  <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
+                    <ProductCard
+                      product={product}
+                      liked={likedProducts.includes(product.id)}
+                      onToggleLike={handleWishlistToggle}
+                      onAddToCart={handleAddToCart}
+                    />
+                  </Grid>
+                ))}
               </Grid>
-            ))}
+            ) : (
+              <Typography
+                variant="body1"
+                align="center"
+                sx={{ width: "100%", mt: 4, color: "text.secondary" }}
+              >
+                Chưa có sản phẩm trong danh mục này
+              </Typography>
+            )}
           </Grid>
 
           {/* Pagination */}

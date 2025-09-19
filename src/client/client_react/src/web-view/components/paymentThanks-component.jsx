@@ -54,6 +54,16 @@ const PaymentThankYouPage = () => {
         orderInfo.plusPoint || 0,
         "add"
       );
+      const orderData = {
+        orderId: orderInfo.orderId,
+        customerName: orderInfo.userInfo.fullName || "customer",
+        email: orderInfo.userInfo.email,
+        total: orderInfo.totalAmount,
+        items: orderInfo.cartItems,
+      };
+      const sendOrder = await accountService.sendOrderConfirmationEmail(
+        orderData
+      );
     }
     return response;
   };
